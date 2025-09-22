@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+# MotoValpo — Sitio web
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Sitio web de Servicio Técnico de Motocicletas (MotoValpo), construido con React + Vite y TypeScript. Diseño dark con animaciones y componentes modernos.
 
-## Available Scripts
+## Características
+- UI moderna con Tailwind CSS (tema oscuro, gradientes y acentos).
+- Animaciones con `motion` (Framer Motion API para React).
+- Iconografía con `lucide-react`.
+- Componentes accesibles (Radix UI) y utilidades UI.
+- Notificaciones con `sonner`.
+- Despliegue en GitHub Pages.
 
-In the project directory, you can run:
+## Stack técnico
+- React 18 + TypeScript
+- Vite 6 (`@vitejs/plugin-react-swc`)
+- Tailwind CSS 4
+- Radix UI (`@radix-ui/*`)
+- motion (framer-motion API)
+- lucide-react
+- sonner
 
-### `npm start`
+## Requisitos
+- Node.js 18 o 20 (recomendado LTS)
+- npm 9+
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Instalación
+```bash
+npm ci   # o npm install
+```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Desarrollo
+```bash
+npm run dev
+```
+- Servidor local: http://localhost:3000
+- HMR habilitado.
 
-### `npm test`
+## Build (producción)
+```bash
+npm run build
+npm run preview  # vista previa local del build
+```
+- Output a `dist/`.
+- El proyecto usa `base: '/valpomoto/'` en `vite.config.ts` para funcionar bajo GitHub Pages.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Despliegue (GitHub Pages)
+Hay scripts ya configurados con `gh-pages`:
+```bash
+npm run predeploy   # build + copia de 404.html
+npm run deploy      # publica dist/ a la rama gh-pages
+```
+Pasos:
+1) Ejecuta `npm run deploy`.
+2) Espera 1–3 minutos a que GitHub Pages actualice.
+3) URL del sitio: https://brunochc.github.io/valpomoto/
 
-### `npm run build`
+Si prefieres automatizar al hacer push a `master`, crea un workflow en `.github/workflows/deploy.yml` que construya y publique `dist/` en `gh-pages`.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Rutas, imágenes y metadatos
+- Como el sitio vive en `/valpomoto/`, evita rutas absolutas del tipo `/archivo.png` en runtime. Usa rutas relativas o considera `import.meta.env.BASE_URL` en código cuando necesites construir paths a `public/`.
+- Para metadatos (Open Graph / Twitter), se añadieron etiquetas en `public/index.html`. Recomendado usar URL absoluta para `og:image` en producción:
+  - `https://brunochc.github.io/valpomoto/meta.png`
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Estructura relevante
+```
+public/
+  favicon.ico
+  meta.png           # imagen para metadatos (OG/Twitter)
+  casco-de-motocicleta-seguro.jpg
+src/
+  App.tsx            # layout principal (Header, Hero, Services, Gallery, Contact, Footer)
+  components/
+    Header.tsx
+    Hero.tsx
+    Services.tsx
+    Gallery.tsx
+    Contact.tsx
+    Footer.tsx
+    figma/ImageWithFallback.tsx
+    ui/*             # componentes UI (Radix + utilidades)
+  styles/globals.css
+  index.css          # salida Tailwind generada
+vite.config.ts       # base '/valpomoto/' y alias
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Scripts disponibles
+- `npm run dev`: desarrollo con Vite.
+- `npm run build`: build de producción a `dist/`.
+- `npm run preview`: servidor de vista previa del build.
+- `npm run predeploy`: build + copia `dist/index.html` a `dist/404.html` (necesario para SPAs en GitHub Pages).
+- `npm run deploy`: publica `dist/` a la rama `gh-pages`.
 
-### `npm run eject`
+## Buenas prácticas
+- Optimiza imágenes antes de subir (ancho ~1600px, calidad ~80%).
+- Evita hotlinking de imágenes de terceros; colócalas en `public/` respetando licencias.
+- Para imágenes en runtime bajo GitHub Pages, valida rutas con `BASE_URL`.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Solución de problemas
+- “No se actualiza la página tras push a master”: debes publicar `dist/` a `gh-pages` (`npm run deploy`) o automatizar con GitHub Actions.
+- Imágenes locales no cargan en producción: revisa el `base` (`/valpomoto/`) y usa rutas que lo contemplen o `import.meta.env.BASE_URL`.
+- Metadatos no se ven en redes: usa URL absoluta para `og:image` y espera el refresco del crawler (o usa las herramientas de depuración de cada red).
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+2025 MotoValpo. Todos los derechos reservados.

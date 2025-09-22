@@ -1,10 +1,11 @@
 import { motion } from 'motion/react';
 import { ArrowRight, Play } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import SplitText from './animations/SplitText';
 
 export function Hero() {
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden pt-28 sm:pt-0 scroll-mt-28">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <ImageWithFallback
@@ -40,24 +41,26 @@ export function Hero() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center">
+      <div className="relative z-10 container mx-auto px-4 text-center mt-20 sm:mt-0">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          <motion.h1 
-            className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight"
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            <span className="bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              Servicio Técnico
-            </span>
-            <br />
-            <span className="text-white">de Motocicletas</span>
-          </motion.h1>
+          <SplitText
+            tag="h1"
+            text="Servicio Técnico de Motocicletas"
+            className="text-5xl md:text-7xl font-bold mb-6 leading-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent mt-28 md:mt-0"
+            delay={80}
+            duration={0.6}
+            ease="power3.out"
+            splitType="chars,words"
+            from={{ opacity: 0, y: 40 }}
+            to={{ opacity: 1, y: 0 }}
+            threshold={0}
+            rootMargin="0px"
+            textAlign="center"
+          />
 
           <motion.p
             className="text-xl md:text-2xl text-gray-300 mb-8 max-w-3xl mx-auto"

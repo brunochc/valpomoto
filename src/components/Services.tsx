@@ -39,7 +39,7 @@ export function Services() {
       icon: Cog,
       title: 'Modificaciones',
       description: 'Personalización y mejoras de rendimiento',
-      features: ['Escape', 'Filtro aire', 'Chip tuning', 'Accesorios'],
+      features: ['Escape', 'Filtro aire', 'Accesorios'],
       price: 'Consultar',
       color: 'from-red-500 to-primary'
     },
